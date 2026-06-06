@@ -1,0 +1,1971 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clase 2 - Stack, rutas y contacto</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 17mm 15mm;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      body {
+        margin: 0;
+        background: #e8eef5;
+        color: #172033;
+        font-family: "Segoe UI", Arial, sans-serif;
+        font-size: 13.3px;
+        line-height: 1.55;
+      }
+
+      .page {
+        max-width: 920px;
+        margin: 0 auto;
+        background: #ffffff;
+      }
+
+      .cover {
+        min-height: 92vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 52px;
+        background:
+          linear-gradient(135deg, rgba(13, 148, 136, 0.94), rgba(15, 23, 42, 0.98)),
+          radial-gradient(circle at 80% 18%, rgba(37, 99, 235, 0.72), transparent 34%);
+        color: #ffffff;
+      }
+
+      .cover small {
+        display: block;
+        margin-bottom: 16px;
+        color: #ccfbf1;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .cover h1 {
+        max-width: 780px;
+        margin: 0;
+        font-size: 48px;
+        line-height: 1.05;
+      }
+
+      .cover p {
+        max-width: 700px;
+        margin: 24px 0 0;
+        color: #e0f2fe;
+        font-size: 18px;
+      }
+
+      .cover .meta {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 44px;
+      }
+
+      .meta div {
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 10px;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .meta strong {
+        display: block;
+        color: #ffffff;
+        font-size: 16px;
+      }
+
+      .meta span {
+        color: #ccfbf1;
+        font-size: 12px;
+      }
+
+      main {
+        padding: 36px 52px 52px;
+      }
+
+      h2 {
+        margin: 34px 0 12px;
+        color: #0f172a;
+        font-size: 25px;
+        line-height: 1.2;
+        border-bottom: 2px solid #ccfbf1;
+        padding-bottom: 8px;
+      }
+
+      h3 {
+        margin: 24px 0 8px;
+        color: #0f766e;
+        font-size: 18px;
+      }
+
+      h4 {
+        margin: 18px 0 6px;
+        color: #0f172a;
+        font-size: 15px;
+      }
+
+      p {
+        margin: 0 0 10px;
+      }
+
+      ul,
+      ol {
+        margin-top: 6px;
+        padding-left: 24px;
+      }
+
+      li {
+        margin-bottom: 5px;
+      }
+
+      table {
+        width: 100%;
+        margin: 14px 0;
+        border-collapse: collapse;
+        font-size: 12.4px;
+      }
+
+      th {
+        background: #f0fdfa;
+        color: #134e4a;
+        text-align: left;
+      }
+
+      th,
+      td {
+        border: 1px solid #d8e2ef;
+        padding: 8px 9px;
+        vertical-align: top;
+      }
+
+      code {
+        border-radius: 4px;
+        background: #edf2f7;
+        color: #0f172a;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 12.4px;
+        padding: 1px 4px;
+      }
+
+      pre {
+        margin: 12px 0 16px;
+        border: 1px solid #d7dfec;
+        border-left: 5px solid #0d9488;
+        border-radius: 8px;
+        background: #0f172a;
+        color: #e5e7eb;
+        font-size: 11.6px;
+        line-height: 1.42;
+        overflow: hidden;
+        padding: 14px 16px;
+        white-space: pre-wrap;
+      }
+
+      pre code {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+      }
+
+      .note,
+      .exercise,
+      .warning,
+      .check {
+        margin: 16px 0;
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+
+      .note {
+        border: 1px solid #99f6e4;
+        background: #f0fdfa;
+      }
+
+      .warning {
+        border: 1px solid #fed7aa;
+        background: #fff7ed;
+      }
+
+      .check {
+        border: 1px solid #bbf7d0;
+        background: #f0fdf4;
+      }
+
+      .exercise {
+        border: 1px solid #c4b5fd;
+        background: #f5f3ff;
+      }
+
+      .label {
+        display: inline-block;
+        margin-bottom: 8px;
+        border-radius: 999px;
+        background: #0f766e;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 3px 9px;
+        text-transform: uppercase;
+      }
+
+      .toc {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 20px;
+        margin: 18px 0 8px;
+      }
+
+      .toc a {
+        color: #0f766e;
+        text-decoration: none;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin: 14px 0;
+      }
+
+      .flow div {
+        border: 1px solid #ccfbf1;
+        border-radius: 8px;
+        background: #f8fffd;
+        padding: 10px;
+      }
+
+      .page-break {
+        break-before: page;
+      }
+
+      .footer-note {
+        margin-top: 34px;
+        border-top: 1px solid #d8e2ef;
+        padding-top: 12px;
+        color: #64748b;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section class="cover">
+        <div>
+          <small>Curso React y Node.js - Clase 2 de 6</small>
+          <h1>Stack básico, rutas internas y página de contacto</h1>
+          <p>
+            Documento ampliado para explicar el segundo paso del curso:
+            dependencias, arquitectura, código completo, flujo de React Router
+            y sintaxis JavaScript/JSX usada en este stack.
+          </p>
+        </div>
+
+        <div class="meta">
+          <div>
+            <strong>Duración</strong>
+            <span>5 horas</span>
+          </div>
+          <div>
+            <strong>Nivel</strong>
+            <span>Principiante</span>
+          </div>
+          <div>
+            <strong>Producto</strong>
+            <span>Inicio + Contacto + Backend preparado</span>
+          </div>
+        </div>
+      </section>
+
+      <main>
+        <h2>Índice</h2>
+        <div class="toc">
+          <a href="#objetivos">1. Objetivos de la clase</a>
+          <a href="#orden">2. Orden de trabajo</a>
+          <a href="#resultado">3. Qué vamos a construir</a>
+          <a href="#dependencias">4. Dependencias y comandos</a>
+          <a href="#arquitectura">5. Arquitectura del stack</a>
+          <a href="#flujo">6. Flujo completo de la app</a>
+          <a href="#codigo">7. Código archivo por archivo</a>
+          <a href="#backend">8. Backend preparado</a>
+          <a href="#javascript">9. JavaScript y JSX usados en este stack</a>
+          <a href="#ejercicios-js">10. Ejercicios de JavaScript y JSX</a>
+          <a href="#ejercicios-stack">11. Ejercicios de stack</a>
+        </div>
+
+        <section id="objetivos">
+          <h2>1. Objetivos de la clase</h2>
+          <p>
+            En la primera clase vimos cómo preparar el entorno y crear un primer
+            Hola Mundo con React y Vite. En esta segunda clase convertimos ese
+            ejemplo inicial en una estructura mínima de aplicación. Todavía no
+            buscamos una app completa, sino una base clara para crecer.
+          </p>
+
+          <p>
+            El cambio principal respecto a la clase 1 es conceptual. Ya no
+            pensamos en una única pantalla dentro de <code>App.jsx</code>.
+            Empezamos a pensar en una aplicación formada por piezas: una página
+            de inicio, una página de contacto, una navegación común y un archivo
+            donde se declaran las rutas. Esa separación es pequeña, pero prepara
+            al alumnado para proyectos más reales.
+          </p>
+
+          <div class="check">
+            <span class="label">Al terminar</span>
+            <ul>
+              <li>Entenderemos que una app React puede tener varias URLs internas.</li>
+              <li>Instalaremos la dependencia adicional <code>react-router-dom</code>.</li>
+              <li>Separaremos el código en <code>components/</code>, <code>pages/</code> y <code>routes/</code>.</li>
+              <li>Crearemos una ruta de inicio <code>/</code> y una ruta de contacto <code>/contacto</code>.</li>
+              <li>Usaremos <code>Link</code> para navegar sin recargar toda la página.</li>
+              <li>Dejaremos una carpeta <code>Backend/</code> preparada, sin desarrollar Express todavía.</li>
+              <li>Relacionaremos cada archivo con el flujo real de la aplicación.</li>
+              <li>Repasaremos la sintaxis JavaScript y JSX que aparece en el código.</li>
+            </ul>
+          </div>
+
+          <div class="warning">
+            <span class="label">Alcance de clase 2</span>
+            <p>
+              No vamos a crear todavía formularios funcionales, estado con
+              <code>useState</code>, peticiones HTTP, Express ni bases de datos.
+              Esta clase trata de estructura, navegación y lectura del flujo.
+            </p>
+          </div>
+        </section>
+
+        <section id="orden">
+          <h2>2. Orden de trabajo</h2>
+          <p>
+            Para evitar líos, la clase 2 debe seguir siempre el mismo orden. No
+            empezamos creando rutas si antes no hemos instalado la dependencia,
+            y no creamos enlaces si antes no tenemos claras las páginas.
+          </p>
+
+          <p>
+            Este orden también ayuda a explicar causa y efecto. Primero creamos
+            las páginas porque son el contenido que queremos mostrar. Después
+            creamos las rutas porque necesitamos decir qué URL muestra cada
+            página. Luego creamos la navegación porque los enlaces necesitan
+            apuntar a rutas que ya existen. Por último, conectamos todo en
+            <code>App.jsx</code>.
+          </p>
+
+          <div class="check">
+            <span class="label">Secuencia recomendada</span>
+            <ol>
+              <li>Partir del proyecto React creado en la clase 1.</li>
+              <li>Abrir la raíz del proyecto en VS Code.</li>
+              <li>Comprobar que estamos en la carpeta correcta desde la terminal.</li>
+              <li>Instalar dependencias si el proyecto acaba de descargarse.</li>
+              <li>Instalar la dependencia nueva de rutas: <code>react-router-dom</code>.</li>
+              <li>Crear las carpetas <code>components/</code>, <code>pages/</code> y <code>routes/</code>.</li>
+              <li>Crear componentes pequeños: <code>Texto.jsx</code> y <code>Boton.jsx</code>.</li>
+              <li>Crear después las páginas: <code>Inicio.jsx</code> y <code>Contacto.jsx</code>.</li>
+              <li>Crear después <code>AppRoutes.jsx</code> para asociar URLs con páginas.</li>
+              <li>Crear <code>Navegacion.jsx</code> con enlaces internos mediante <code>Link</code>.</li>
+              <li>Actualizar <code>App.jsx</code> para montar <code>BrowserRouter</code>, navegación y rutas.</li>
+              <li>Preparar la carpeta <code>Backend/</code> sin desarrollar Express todavía.</li>
+              <li>Probar el frontend con <code>npm run dev</code>.</li>
+              <li>Verificar con <code>npm run lint</code> y <code>npm run build</code>.</li>
+            </ol>
+          </div>
+
+          <h3>2.1 Comandos en orden</h3>
+          <p>
+            Si el proyecto ya está creado y estamos empezando la clase 2, estos
+            son los comandos principales:
+          </p>
+
+          <pre><code>npm install
+npm install react-router-dom
+npm run dev</code></pre>
+
+          <p>
+            Si queremos comprobar que todo compila al final:
+          </p>
+
+          <pre><code>npm run lint
+npm run build</code></pre>
+
+          <p>
+            En clase conviene escribir los comandos en la terminal integrada de
+            VS Code y detenerse después de cada uno. Si el comando falla, no se
+            debe seguir al siguiente paso. Por ejemplo, si
+            <code>npm install react-router-dom</code> falla, los imports de
+            <code>BrowserRouter</code>, <code>Routes</code>, <code>Route</code>
+            o <code>Link</code> no funcionarán.
+          </p>
+
+          <h3>2.2 Archivos en orden de creación</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Orden</th>
+                <th>Archivo o carpeta</th>
+                <th>Motivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><code>src/components/Texto.jsx</code></td>
+                <td>Componente pequeño de texto para usar dentro de Inicio.</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><code>src/components/Boton.jsx</code></td>
+                <td>Componente visual de botón, sin eventos todavía.</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><code>src/pages/Inicio.jsx</code></td>
+                <td>Primera página: se mostrará en <code>/</code>.</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><code>src/pages/Contacto.jsx</code></td>
+                <td>Segunda página: se mostrará en <code>/contacto</code>.</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td><code>src/routes/AppRoutes.jsx</code></td>
+                <td>Une cada URL con su página.</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td><code>src/components/Navegacion.jsx</code></td>
+                <td>Permite navegar entre Inicio y Contacto.</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td><code>src/App.jsx</code></td>
+                <td>Monta la estructura común: router, navegación y rutas.</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td><code>Backend/</code></td>
+                <td>Reserva el lugar donde vivirá Node/Express más adelante.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="warning">
+            <span class="label">Evitar</span>
+            <p>
+              No conviene crear todo dentro de <code>App.jsx</code>. Para clase
+              2 queremos enseñar desde el principio que una aplicación se separa
+              por responsabilidades: páginas, componentes y rutas.
+            </p>
+          </div>
+        </section>
+
+        <section id="resultado">
+          <h2>3. Qué vamos a construir</h2>
+          <p>
+            El objetivo práctico es tener un stack muy pequeño con dos pantallas:
+            una página de inicio y una página de contacto. El backend solo queda
+            preparado como carpeta para que se vea la arquitectura global.
+          </p>
+
+          <p>
+            Este stack no tiene todavía datos dinámicos, formularios, estado ni
+            llamadas a una API. Eso es intencionado. La clase se centra en que
+            el alumnado entienda qué archivo cumple cada función y cómo se
+            conectan las piezas. Una vez entendido esto, será mucho más fácil
+            añadir interactividad.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>URL</th>
+                <th>Archivo de página</th>
+                <th>Qué muestra</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>/</code></td>
+                <td><code>src/pages/Inicio.jsx</code></td>
+                <td>Datos básicos del curso y bloque de conceptos.</td>
+              </tr>
+              <tr>
+                <td><code>/contacto</code></td>
+                <td><code>src/pages/Contacto.jsx</code></td>
+                <td>Página interna de contacto con texto explicativo.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            Para navegar entre esas páginas usamos un componente llamado
+            <code>Navegacion</code>. Para decidir qué página se muestra según la
+            URL usamos <code>AppRoutes</code>.
+          </p>
+
+          <div class="note">
+            <span class="label">Ejemplo mental</span>
+            <p>
+              Podemos imaginar <code>AppRoutes.jsx</code> como una tabla de
+              equivalencias: "si la URL es esta, muestra esta página". La
+              navegación no decide qué se muestra; solo cambia la URL. La
+              decisión la toman las rutas.
+            </p>
+          </div>
+        </section>
+
+        <section id="dependencias" class="page-break">
+          <h2>4. Dependencias y comandos</h2>
+          <p>
+            Una dependencia es un paquete externo que nuestro proyecto necesita
+            para funcionar. En esta clase debemos distinguir entre las
+            dependencias que ya trae la plantilla de Vite con React y la
+            dependencia nueva que instalamos para las rutas.
+          </p>
+
+          <p>
+            El archivo <code>package.json</code> es como una ficha técnica del
+            proyecto. Indica qué comandos podemos ejecutar y qué paquetes
+            necesita la aplicación. Cuando ejecutamos <code>npm install</code>,
+            npm lee esa ficha y descarga los paquetes necesarios.
+          </p>
+
+          <h3>4.1 Dependencias base del proyecto React</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Dependencia</th>
+                <th>Para qué sirve</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>react</code></td>
+                <td>Librería principal para construir componentes e interfaces.</td>
+              </tr>
+              <tr>
+                <td><code>react-dom</code></td>
+                <td>Permite montar React dentro del DOM del navegador.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>4.2 Dependencia adicional de clase 2</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Dependencia</th>
+                <th>Por qué la añadimos</th>
+                <th>Comando</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>react-router-dom</code></td>
+                <td>Permite crear rutas internas como <code>/</code> y <code>/contacto</code>.</td>
+                <td><code>npm install react-router-dom</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>Comando que hay que ejecutar en consola desde la raíz del proyecto:</p>
+          <pre><code>npm install react-router-dom</code></pre>
+
+          <p>
+            Después de instalarlo, aparecerá en <code>package.json</code> dentro
+            de <code>dependencies</code>:
+          </p>
+
+          <pre><code>"dependencies": {
+  "react": "^19.2.6",
+  "react-dom": "^19.2.6",
+  "react-router-dom": "^7.15.1"
+}</code></pre>
+
+          <p>
+            En esta clase, <code>react-router-dom</code> aporta cuatro piezas
+            importantes:
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Pieza</th>
+                <th>Dónde se usa</th>
+                <th>Para qué sirve</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>BrowserRouter</code></td>
+                <td><code>App.jsx</code></td>
+                <td>Activa el sistema de rutas en la aplicación.</td>
+              </tr>
+              <tr>
+                <td><code>Routes</code></td>
+                <td><code>AppRoutes.jsx</code></td>
+                <td>Agrupa todas las rutas disponibles.</td>
+              </tr>
+              <tr>
+                <td><code>Route</code></td>
+                <td><code>AppRoutes.jsx</code></td>
+                <td>Relaciona una URL concreta con un componente.</td>
+              </tr>
+              <tr>
+                <td><code>Link</code></td>
+                <td><code>Navegacion.jsx</code></td>
+                <td>Crea enlaces internos sin recargar toda la página.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>4.3 Dependencias frente a devDependencies</h3>
+          <p>
+            En <code>package.json</code> aparecen dos bloques habituales:
+            <code>dependencies</code> y <code>devDependencies</code>. Para el
+            alumnado principiante, la diferencia se puede explicar así:
+          </p>
+
+          <ul>
+            <li><code>dependencies</code>: paquetes que la aplicación necesita para funcionar.</li>
+            <li><code>devDependencies</code>: herramientas necesarias durante el desarrollo.</li>
+          </ul>
+
+          <p>
+            React y React Router son dependencias de la aplicación. Vite y ESLint
+            son herramientas de desarrollo.
+          </p>
+
+          <h3>4.4 Comandos importantes del proyecto</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Comando</th>
+                <th>Cuándo se usa</th>
+                <th>Qué hace</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>npm install</code></td>
+                <td>Al descargar o crear el proyecto.</td>
+                <td>Instala las dependencias en <code>node_modules</code>.</td>
+              </tr>
+              <tr>
+                <td><code>npm run dev</code></td>
+                <td>Durante el desarrollo.</td>
+                <td>Arranca Vite en <code>http://localhost:5173/</code>.</td>
+              </tr>
+              <tr>
+                <td><code>npm run build</code></td>
+                <td>Para comprobar que compila.</td>
+                <td>Genera una versión final en <code>dist/</code>.</td>
+              </tr>
+              <tr>
+                <td><code>npm run lint</code></td>
+                <td>Para revisar errores de código.</td>
+                <td>Ejecuta ESLint sobre el proyecto.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note">
+            <span class="label">Para clase</span>
+            <p>
+              <code>dist/</code> se genera al ejecutar <code>npm run build</code>.
+              No es necesario mantenerlo visible durante la explicación, porque
+              es una carpeta generada automáticamente.
+            </p>
+          </div>
+
+          <h3>4.5 De dónde sale <code>eslint.config.js</code></h3>
+          <p>
+            El archivo <code>eslint.config.js</code> lo crea la plantilla de Vite
+            con React. No lo hemos escrito desde cero. Viene preparado para que
+            el comando <code>npm run lint</code> pueda revisar nuestro código.
+          </p>
+
+          <p>
+            ESLint no arranca la aplicación y no crea la interfaz. Su papel es
+            analizar los archivos <code>.js</code> y <code>.jsx</code> para
+            detectar errores o patrones problemáticos. Por ejemplo, ayuda a
+            encontrar imports mal usados, variables sin usar o errores
+            relacionados con React.
+          </p>
+        </section>
+
+        <section id="arquitectura">
+          <h2>5. Arquitectura del stack</h2>
+          <p>
+            La raíz del proyecto contiene el frontend con React y Vite. La
+            carpeta <code>Backend/</code> queda reservada para Node y Express.
+            Aunque estén en la misma carpeta de trabajo, frontend y backend son
+            responsabilidades diferentes.
+          </p>
+
+          <p>
+            Una regla útil para decidir dónde colocar un archivo es preguntarse:
+            "¿este archivo representa una página completa, una pieza reutilizable
+            o una configuración de rutas?". Si es una pantalla completa, irá a
+            <code>pages/</code>. Si es una pieza que puede aparecer en varias
+            páginas, irá a <code>components/</code>. Si decide qué URL muestra
+            qué página, irá a <code>routes/</code>.
+          </p>
+
+          <pre><code>00_PROYECTO_PROFE/
+  public/
+  src/
+    components/
+      Boton.jsx
+      Navegacion.jsx
+      Texto.jsx
+    pages/
+      Inicio.jsx
+      Contacto.jsx
+    routes/
+      AppRoutes.jsx
+    App.jsx
+    App.css
+    index.css
+    main.jsx
+  Backend/
+    index.js
+    package.json
+    README.md
+  index.html
+  eslint.config.js
+  package.json
+  package-lock.json
+  vite.config.js</code></pre>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Zona</th>
+                <th>Responsabilidad</th>
+                <th>Ejemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>index.html</code></td>
+                <td>HTML inicial que carga el navegador.</td>
+                <td>Contiene <code>div#root</code> y carga <code>main.jsx</code>.</td>
+              </tr>
+              <tr>
+                <td><code>src/main.jsx</code></td>
+                <td>Punto de entrada de React.</td>
+                <td>Monta <code>App</code> dentro de <code>div#root</code>.</td>
+              </tr>
+              <tr>
+                <td><code>src/App.jsx</code></td>
+                <td>Estructura común de la app.</td>
+                <td>Contiene <code>BrowserRouter</code>, navegación y rutas.</td>
+              </tr>
+              <tr>
+                <td><code>src/components/</code></td>
+                <td>Componentes reutilizables.</td>
+                <td><code>Navegacion.jsx</code>, <code>Texto.jsx</code>, <code>Boton.jsx</code>.</td>
+              </tr>
+              <tr>
+                <td><code>src/pages/</code></td>
+                <td>Páginas completas.</td>
+                <td><code>Inicio.jsx</code> y <code>Contacto.jsx</code>.</td>
+              </tr>
+              <tr>
+                <td><code>src/routes/</code></td>
+                <td>Declaración de URLs.</td>
+                <td><code>AppRoutes.jsx</code>.</td>
+              </tr>
+              <tr>
+                <td><code>eslint.config.js</code></td>
+                <td>Configuración de revisión de código.</td>
+                <td>Se usa al ejecutar <code>npm run lint</code>.</td>
+              </tr>
+              <tr>
+                <td><code>Backend/</code></td>
+                <td>Servidor Node futuro.</td>
+                <td><code>index.js</code> preparado sin Express todavía.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>5.1 Ejemplos de decisión de carpeta</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Necesidad</th>
+                <th>Carpeta</th>
+                <th>Motivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Crear una página "Cursos".</td>
+                <td><code>src/pages/</code></td>
+                <td>Es una pantalla completa asociada a una URL.</td>
+              </tr>
+              <tr>
+                <td>Crear un menú reutilizable.</td>
+                <td><code>src/components/</code></td>
+                <td>Puede aparecer en varias páginas.</td>
+              </tr>
+              <tr>
+                <td>Añadir la URL <code>/cursos</code>.</td>
+                <td><code>src/routes/</code></td>
+                <td>Las rutas se declaran en un archivo específico.</td>
+              </tr>
+              <tr>
+                <td>Preparar el servidor Node.</td>
+                <td><code>Backend/</code></td>
+                <td>No forma parte del código React.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="flujo" class="page-break">
+          <h2>6. Flujo completo de la app</h2>
+          <p>
+            Este es el recorrido más importante de la clase. Conviene explicarlo
+            despacio y volver a él varias veces.
+          </p>
+
+          <p>
+            La clave es distinguir entre "cargar la aplicación" y "navegar dentro
+            de la aplicación". La primera carga ocurre cuando abrimos
+            <code>localhost:5173</code>. A partir de ahí, React Router puede
+            cambiar entre páginas internas sin volver a cargar todo desde cero.
+          </p>
+
+          <div class="flow">
+            <div><strong>1. Vite</strong><br />Sirve <code>index.html</code> en el navegador.</div>
+            <div><strong>2. index.html</strong><br />Tiene <code>div#root</code> y carga <code>main.jsx</code>.</div>
+            <div><strong>3. main.jsx</strong><br />Busca <code>root</code> y renderiza <code>App</code>.</div>
+            <div><strong>4. App.jsx</strong><br />Activa <code>BrowserRouter</code>.</div>
+            <div><strong>5. Navegacion.jsx</strong><br />Muestra enlaces con <code>Link</code>.</div>
+            <div><strong>6. AppRoutes.jsx</strong><br />Relaciona URL con página.</div>
+          </div>
+
+          <h3>6.1 Flujo al abrir la home</h3>
+          <ol>
+            <li>El navegador abre <code>http://localhost:5173/</code>.</li>
+            <li>Vite entrega <code>index.html</code>.</li>
+            <li><code>index.html</code> carga <code>/src/main.jsx</code>.</li>
+            <li><code>main.jsx</code> monta <code>App</code> en <code>div#root</code>.</li>
+            <li><code>App</code> activa <code>BrowserRouter</code>.</li>
+            <li><code>AppRoutes</code> ve que la URL es <code>/</code>.</li>
+            <li>React muestra <code>Inicio</code>.</li>
+          </ol>
+
+          <h3>6.2 Flujo al pulsar Contacto</h3>
+          <ol>
+            <li>El usuario pulsa el enlace <code>Contacto</code>.</li>
+            <li><code>Link</code> cambia la URL a <code>/contacto</code>.</li>
+            <li><code>BrowserRouter</code> informa a React Router de la ruta actual.</li>
+            <li><code>AppRoutes</code> encuentra <code>path="/contacto"</code>.</li>
+            <li>React muestra el componente <code>Contacto</code>.</li>
+          </ol>
+
+          <div class="note">
+            <span class="label">Frase clave</span>
+            <p>
+              <code>App.jsx</code> no pregunta manualmente qué URL hay.
+              <code>AppRoutes.jsx</code> declara las rutas y React Router decide
+              qué página debe renderizar.
+            </p>
+          </div>
+        </section>
+
+        <section id="codigo" class="page-break">
+          <h2>7. Código archivo por archivo</h2>
+          <p>
+            En esta sección aparece el código de los archivos implicados en el
+            stack de clase 2. La idea es que el alumnado pueda seguir el flujo
+            con el documento delante.
+          </p>
+
+          <h3>7.1 <code>index.html</code></h3>
+          <pre><code>&lt;!doctype html&gt;
+&lt;html lang="es"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;link rel="icon" type="image/svg+xml" href="/favicon.svg" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;title&gt;Curso React y Node.js&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Punto de montaje: React colocara aqui la aplicacion desde src/main.jsx. --&gt;
+    &lt;div id="root"&gt;&lt;/div&gt;
+
+    &lt;!-- Punto de entrada: este archivo inicia React. --&gt;
+    &lt;script type="module" src="/src/main.jsx"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+          <p>
+            Lo importante para el flujo no son los metadatos del HTML. Lo
+            importante es <code>div#root</code> y el script que carga
+            <code>src/main.jsx</code>.
+          </p>
+
+          <h3>7.2 <code>vite.config.js</code></h3>
+          <pre><code>// defineConfig viene de Vite.
+// Sirve para escribir la configuracion del proyecto con ayudas del editor.
+import { defineConfig } from 'vite'
+
+// react es el plugin oficial de Vite para proyectos React.
+// Permite que Vite entienda JSX y actualice la pantalla mientras desarrollamos.
+import react from '@vitejs/plugin-react'
+
+// Exportamos la configuracion que Vite usara al ejecutar npm run dev o npm run build.
+export default defineConfig({
+  plugins: [react()],
+})</code></pre>
+
+          <h3>7.3 <code>eslint.config.js</code></h3>
+          <pre><code>// Este archivo lo crea la plantilla de Vite con React.
+// Su funcion es configurar ESLint, la herramienta que revisa el codigo cuando
+// ejecutamos npm run lint. ESLint no ejecuta la aplicacion: solo analiza archivos
+// .js y .jsx para detectar errores, malas practicas o configuraciones que no
+// encajan con React, como problemas con hooks o con la recarga rapida de Vite.
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{js,jsx}'],
+    extends: [
+      js.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+  },
+])</code></pre>
+
+          <p>
+            Este archivo aparece en la raíz porque afecta a todo el proyecto. En
+            clase no necesitamos memorizar cada línea: basta con entender que
+            configura la revisión de código que se ejecuta con
+            <code>npm run lint</code>.
+          </p>
+
+          <h3>7.4 <code>package.json</code></h3>
+          <pre><code>{
+  "name": "curso-react-node",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.15.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "vite": "^8.0.12"
+  }
+}</code></pre>
+
+          <p>
+            En JSON no se escriben comentarios. Por eso explicamos este archivo
+            en el documento, pero no lo comentamos dentro del propio
+            <code>package.json</code>.
+          </p>
+
+          <h3>7.5 <code>src/main.jsx</code></h3>
+          <pre><code>// Importamos StrictMode desde React.
+// StrictMode ayuda durante el desarrollo avisando de posibles problemas.
+// En este curso lo usamos solo aqui, en el punto de entrada de la aplicacion.
+import { StrictMode } from 'react'
+
+// Importamos createRoot desde react-dom/client.
+// Sirve para decirle a React en que elemento del HTML debe montar la aplicacion.
+// Tambien se usa una vez, en main.jsx.
+import { createRoot } from 'react-dom/client'
+
+// Importamos los estilos globales.
+// Este CSS afecta a toda la aplicacion, por eso se importa en main.jsx.
+import './index.css'
+
+// Importamos el componente principal App.
+// A partir de App iremos componiendo el resto de la interfaz.
+import App from './App.jsx'
+
+// El navegador carga index.html.
+// Dentro de index.html existe un div vacio con id="root".
+// React usara ese div como contenedor principal de toda la aplicacion.
+const contenedor = document.getElementById('root')
+
+// createRoot crea la conexion entre React y el div del HTML.
+// render muestra el componente App dentro de ese contenedor.
+createRoot(contenedor).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;,
+)</code></pre>
+
+          <h3>7.6 <code>src/App.jsx</code></h3>
+          <pre><code>// Importamos BrowserRouter desde React Router.
+// BrowserRouter activa el sistema de rutas usando la URL del navegador.
+// Debe envolver a los componentes que usan rutas o enlaces internos.
+import { BrowserRouter } from 'react-router-dom'
+
+// Importamos los estilos propios de App.
+// Este archivo se importa aqui porque sus clases se usan en la estructura general.
+import './App.css'
+
+// Importamos la navegacion principal.
+// La navegacion se separa en components/ porque no es una pagina completa.
+import Navegacion from './components/Navegacion.jsx'
+
+// Importamos la configuracion de rutas.
+// AppRoutes vive en routes/ y decide que pagina se muestra segun la URL.
+import AppRoutes from './routes/AppRoutes.jsx'
+
+// App es el componente principal de la aplicacion.
+// Para clase 2 no metemos aqui el contenido de Inicio ni Contacto.
+// App solo monta la estructura comun: router, navegacion y rutas.
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;main className="pagina"&gt;
+        &lt;Navegacion /&gt;
+        &lt;AppRoutes /&gt;
+      &lt;/main&gt;
+    &lt;/BrowserRouter&gt;
+  )
+}
+
+export default App</code></pre>
+
+          <h3>7.7 <code>src/components/Navegacion.jsx</code></h3>
+          <pre><code>// Importamos Link desde React Router.
+// Link crea enlaces internos sin recargar toda la pagina.
+// Para clase 2 usamos Link porque es la opcion mas sencilla para navegar.
+import { Link } from 'react-router-dom'
+
+// Este componente muestra el menu principal de la aplicacion.
+// Se coloca en components/ porque es una pieza reutilizable, no una pagina.
+// Dejamos los enlaces escritos uno a uno para que el ejemplo sea muy facil de leer.
+function Navegacion() {
+  return (
+    &lt;nav className="navegacion"&gt;
+      &lt;Link to="/"&gt;
+        Inicio
+      &lt;/Link&gt;
+
+      &lt;Link to="/contacto"&gt;
+        Contacto
+      &lt;/Link&gt;
+    &lt;/nav&gt;
+  )
+}
+
+export default Navegacion</code></pre>
+
+          <h3>7.8 <code>src/components/Texto.jsx</code></h3>
+          <pre><code>// Texto es un componente pequeno para separar una parte del contenido.
+// Sirve para ver que una pagina puede estar formada por varios componentes.
+function Texto() {
+  return (
+    &lt;p className="texto-apoyo"&gt;
+      Esta frase viene desde un componente separado llamado Texto.
+    &lt;/p&gt;
+  )
+}
+
+// Exportamos Texto para poder usarlo dentro de la pagina Inicio.
+export default Texto</code></pre>
+
+          <h3>7.9 <code>src/components/Boton.jsx</code></h3>
+          <pre><code>// Boton es un componente visual muy sencillo.
+// De momento no tiene onClick porque los eventos se explicaran mas adelante.
+function Boton() {
+  return (
+    &lt;button className="boton" type="button"&gt;
+      Ver temario
+    &lt;/button&gt;
+  )
+}
+
+// Exportamos Boton para poder usarlo dentro de la pagina Inicio.
+export default Boton</code></pre>
+
+          <h3>7.10 <code>src/routes/AppRoutes.jsx</code></h3>
+          <pre><code>// Importamos Routes y Route desde React Router.
+// Routes agrupa todas las rutas disponibles.
+// Route relaciona una URL con el componente que debe mostrarse.
+import { Route, Routes } from 'react-router-dom'
+
+// Importamos las paginas que queremos asociar a una URL.
+// Cada pagina vive en su propio archivo para que el proyecto pueda crecer.
+import Contacto from '../pages/Contacto.jsx'
+import Inicio from '../pages/Inicio.jsx'
+
+// Este componente centraliza las URLs de la aplicacion.
+// Para anadir una pagina nueva, normalmente anadiremos aqui una nueva Route.
+// Asi evitamos llenar App.jsx con condicionales o contenidos de todas las paginas.
+function AppRoutes() {
+  return (
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;Inicio /&gt;} /&gt;
+      &lt;Route path="/contacto" element={&lt;Contacto /&gt;} /&gt;
+    &lt;/Routes&gt;
+  )
+}
+
+export default AppRoutes</code></pre>
+
+          <h3>7.11 <code>src/pages/Inicio.jsx</code></h3>
+          <pre><code>// Importamos componentes pequenos que se muestran dentro de la pagina Inicio.
+// Asi vemos que una pagina puede componerse de varias piezas reutilizables.
+import Boton from '../components/Boton.jsx'
+import Texto from '../components/Texto.jsx'
+
+// En JavaScript usamos const cuando no vamos a reasignar una variable.
+// Estos datos se muestran despues dentro del JSX usando llaves: { }.
+const tituloCurso = 'Desarrollo de Aplicaciones con React y Node.js'
+const duracionHoras = 30
+const numeroSesiones = 6
+const horasPorSesion = duracionHoras / numeroSesiones
+
+// Inicio es una pagina de la aplicacion.
+// Vive en pages/ porque representa una pantalla completa.
+// La ruta "/" mostrara este componente gracias a AppRoutes.jsx.
+function Inicio() {
+  return (
+    // Usamos un fragmento &lt;&gt;...&lt;/&gt; porque esta pagina devuelve dos secciones.
+    // React necesita devolver un unico bloque padre desde cada componente.
+    &lt;&gt;
+      {/* Primer bloque visible de la pagina de inicio. */}
+      &lt;section className="bloque-presentacion"&gt;
+        &lt;p className="etiqueta"&gt;Dia 1 - Preparacion del entorno&lt;/p&gt;
+
+        &lt;h1&gt;{tituloCurso}&lt;/h1&gt;
+
+        &lt;p className="entradilla"&gt;
+          Primer frontend creado con Vite y React para el curso.
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          {/* Las llaves permiten insertar valores de JavaScript dentro del JSX. */}
+          El curso tiene {duracionHoras} horas, repartidas en{' '}
+          {numeroSesiones} sesiones de {horasPorSesion} horas.
+        &lt;/p&gt;
+
+        {/* Componentes sencillos incluidos dentro de la pagina Inicio. */}
+        &lt;Texto /&gt;
+        &lt;Boton /&gt;
+      &lt;/section&gt;
+
+      {/* Segundo bloque de la pagina de inicio. */}
+      &lt;section className="bloque-conceptos"&gt;
+        &lt;h2&gt;Que estamos preparando&lt;/h2&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Un proyecto frontend creado con Vite.&lt;/li&gt;
+          &lt;li&gt;Una aplicacion React muy basica.&lt;/li&gt;
+          &lt;li&gt;Una base para practicar JavaScript moderno.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/section&gt;
+    &lt;/&gt;
+  )
+}
+
+export default Inicio</code></pre>
+
+          <h3>7.12 <code>src/pages/Contacto.jsx</code></h3>
+          <pre><code>// Contacto es una pagina de la aplicacion.
+// Vive en pages/ porque representa una pantalla completa.
+// La ruta "/contacto" mostrara este componente gracias a AppRoutes.jsx.
+function Contacto() {
+  return (
+    // Esta seccion es el contenido completo de la pagina Contacto.
+    &lt;section className="bloque-contacto"&gt;
+      &lt;p className="etiqueta"&gt;Pagina interna&lt;/p&gt;
+
+      &lt;h1&gt;Contacto&lt;/h1&gt;
+
+      &lt;p className="entradilla"&gt;
+        Esta pagina existe porque la hemos asociado a la URL /contacto.
+      &lt;/p&gt;
+
+      &lt;p&gt;
+        {/* Este texto resume la idea central de la clase 2. */}
+        React Router decide que componente debe mostrarse segun la ruta actual.
+        Asi podemos anadir nuevas paginas sin mezclar todo dentro de App.jsx.
+      &lt;/p&gt;
+    &lt;/section&gt;
+  )
+}
+
+export default Contacto</code></pre>
+
+          <h3>7.13 <code>src/index.css</code></h3>
+          <pre><code>/* Estilos generales de la pagina.
+   Este archivo afecta a toda la aplicacion. */
+
+/* box-sizing hace que los anchos sean mas faciles de calcular.
+   Asi padding y border no aumentan el ancho final del elemento. */
+* {
+  box-sizing: border-box;
+}
+
+/* body es la etiqueta general de la pagina HTML.
+   Aqui definimos el fondo, el color de texto y la tipografia base. */
+body {
+  margin: 0;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+/* Estilos base para titulos y parrafos.
+   En una app real podrian crecer, pero para clase 2 son suficientes. */
+h1 {
+  margin-bottom: 16px;
+  font-size: 42px;
+  line-height: 1.1;
+}
+
+h2 {
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+
+p {
+  line-height: 1.6;
+}</code></pre>
+
+          <h3>7.14 <code>src/App.css</code></h3>
+          <pre><code>/* Contenedor principal de la aplicacion.
+   Esta clase se usa en App.jsx.
+   Limitamos el ancho para que el contenido sea facil de leer. */
+.pagina {
+  width: min(900px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 64px 0;
+}
+
+/* Menu superior con los enlaces internos.
+   Esta clase se usa en Navegacion.jsx. */
+.navegacion {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* Estilo base de todos los enlaces del menu. */
+.navegacion a {
+  color: #1e293b;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Estilo cuando el usuario pasa el raton por encima. */
+.navegacion a:hover {
+  color: #2563eb;
+}
+
+/* Bloques blancos que agrupan contenido dentro de cada pagina.
+   Estas clases se usan en Inicio.jsx y Contacto.jsx. */
+.bloque-presentacion,
+.bloque-conceptos,
+.bloque-contacto {
+  background: #ffffff;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
+  padding: 28px;
+}
+
+/* Separacion entre bloques consecutivos. */
+.bloque-conceptos {
+  margin-top: 20px;
+}
+
+/* Texto pequeno que funciona como etiqueta de contexto. */
+.etiqueta {
+  margin: 0 0 12px;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Parrafo destacado bajo el titulo principal. */
+.entradilla {
+  color: #334155;
+  font-size: 20px;
+}
+
+/* Texto que viene del componente Texto.jsx. */
+.texto-apoyo {
+  color: #475569;
+  font-weight: 700;
+}
+
+/* Boton visual del componente Boton.jsx.
+   Aun no tiene evento: los eventos se explicaran mas adelante. */
+.boton {
+  border: 0;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 10px 16px;
+}
+
+.boton:hover {
+  background: #1d4ed8;
+}
+
+/* Ajustes simples para listas dentro del bloque de conceptos. */
+.bloque-conceptos ul {
+  margin-bottom: 0;
+  padding-left: 22px;
+}
+
+.bloque-conceptos li + li {
+  margin-top: 8px;
+}</code></pre>
+        </section>
+
+        <section id="backend" class="page-break">
+          <h2>8. Backend preparado</h2>
+          <p>
+            La carpeta <code>Backend/</code> forma parte del stack, pero en la
+            clase 2 no desarrollamos Express todavía. Su función es didáctica:
+            mostrar dónde vivirá el servidor cuando lleguemos a Node.
+          </p>
+
+          <h3>8.1 <code>Backend/index.js</code></h3>
+          <pre><code>// Este archivo sera el punto de entrada del backend.
+// Punto de entrada significa: el primer archivo que ejecutaremos con Node.js.
+
+// De momento no arrancamos ningun servidor porque el curso empieza por React.
+// Mas adelante aqui configuraremos Express y las rutas de la API.
+// En clase 2 solo queremos que se vea donde vivira el backend dentro del stack.
+
+// React no importara este archivo.
+// Cuando llegue la parte de backend, React se comunicara con este servidor por HTTP.
+
+console.log('Backend preparado. Express se configurara mas adelante.')</code></pre>
+
+          <h3>8.2 <code>Backend/package.json</code></h3>
+          <pre><code>{
+  "name": "backend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  }
+}</code></pre>
+
+          <p>Comandos para probarlo:</p>
+          <pre><code>cd Backend
+npm run dev</code></pre>
+
+          <div class="warning">
+            <span class="label">No hacer</span>
+            <p>
+              React no debe importar <code>Backend/index.js</code>. Cuando el
+              backend exista de verdad, React hablará con él mediante HTTP, por
+              ejemplo con <code>fetch('/api/contacto')</code>.
+            </p>
+          </div>
+        </section>
+
+        <section id="javascript" class="page-break">
+          <h2>9. JavaScript y JSX usados en este stack</h2>
+          <p>
+            Esta sección conecta el código con la teoría de JavaScript necesaria.
+            No se trata de memorizarlo todo, sino de reconocer las piezas que ya
+            aparecen en el proyecto.
+          </p>
+
+          <h3>9.1 Imports y exports</h3>
+          <p>
+            Un proyecto React se divide en archivos. Para usar algo definido en
+            otro archivo se importa. Para permitir que otros archivos lo usen, se
+            exporta.
+          </p>
+
+          <p>
+            Esta idea es fundamental: cada archivo puede tener una
+            responsabilidad pequeña. Por ejemplo, <code>Contacto.jsx</code> solo
+            se preocupa de la página Contacto. Si otro archivo necesita mostrar
+            esa página, la importa. Así evitamos tener todo el proyecto dentro
+            de un único archivo largo.
+          </p>
+
+          <pre><code>import App from './App.jsx'
+export default App</code></pre>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Sintaxis</th>
+                <th>Significado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>import App from './App.jsx'</code></td>
+                <td>Trae el export por defecto del archivo <code>App.jsx</code>.</td>
+              </tr>
+              <tr>
+                <td><code>import { Link } from 'react-router-dom'</code></td>
+                <td>Trae una exportación con nombre llamada <code>Link</code>.</td>
+              </tr>
+              <tr>
+                <td><code>export default Inicio</code></td>
+                <td>Permite importar <code>Inicio</code> desde otro archivo.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Ejemplo paso a paso</h4>
+          <pre><code>// 1. En Contacto.jsx creamos el componente.
+function Contacto() {
+  return &lt;h1&gt;Contacto&lt;/h1&gt;
+}
+
+// 2. Lo exportamos para que otros archivos puedan usarlo.
+export default Contacto
+
+// 3. En AppRoutes.jsx lo importamos.
+import Contacto from '../pages/Contacto.jsx'</code></pre>
+
+          <p>
+            Si olvidamos el <code>export default Contacto</code>, el archivo
+            <code>AppRoutes.jsx</code> no podrá importarlo correctamente. Si
+            escribimos mal la ruta del import, React tampoco encontrará el
+            archivo.
+          </p>
+
+          <h3>9.2 Constantes</h3>
+          <p>
+            Usamos <code>const</code> cuando declaramos un valor que no vamos a
+            reasignar.
+          </p>
+
+          <pre><code>const tituloCurso = 'Desarrollo de Aplicaciones con React y Node.js'
+const duracionHoras = 30
+const numeroSesiones = 6
+const horasPorSesion = duracionHoras / numeroSesiones</code></pre>
+
+          <p>
+            Aquí aparecen strings, números y una operación matemática. Después
+            esos valores se insertan en JSX con llaves.
+          </p>
+
+          <p>
+            En este ejemplo, <code>tituloCurso</code> es una cadena de texto,
+            <code>duracionHoras</code> y <code>numeroSesiones</code> son números,
+            y <code>horasPorSesion</code> es el resultado de una operación. No
+            necesitamos escribir directamente "5"; dejamos que JavaScript lo
+            calcule.
+          </p>
+
+          <h4>Ejemplo equivalente</h4>
+          <pre><code>const duracionHoras = 30
+const numeroSesiones = 6
+
+// JavaScript calcula 30 / 6.
+const horasPorSesion = duracionHoras / numeroSesiones</code></pre>
+
+          <p>
+            Si más adelante el curso tuviera 40 horas y 8 sesiones, solo habría
+            que cambiar las constantes base. El cálculo seguiría funcionando.
+          </p>
+
+          <h3>9.3 Funciones como componentes</h3>
+          <p>
+            En React, una forma básica de crear componentes es escribir una
+            función que devuelve JSX.
+          </p>
+
+          <pre><code>function Contacto() {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Contacto&lt;/h1&gt;
+    &lt;/section&gt;
+  )
+}</code></pre>
+
+          <p>
+            El nombre del componente se escribe con mayúscula inicial. Por eso
+            usamos <code>Contacto</code>, <code>Inicio</code> o
+            <code>Navegacion</code>.
+          </p>
+
+          <p>
+            React distingue entre etiquetas HTML normales y componentes propios.
+            Una etiqueta como <code>&lt;section&gt;</code> empieza en minúscula.
+            Un componente como <code>&lt;Contacto /&gt;</code> empieza en
+            mayúscula. Esta convención ayuda a React a saber qué debe renderizar.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Ejemplo</th>
+                <th>Qué es</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>&lt;h1&gt;</code></td>
+                <td>Etiqueta HTML.</td>
+              </tr>
+              <tr>
+                <td><code>&lt;section&gt;</code></td>
+                <td>Etiqueta HTML.</td>
+              </tr>
+              <tr>
+                <td><code>&lt;Inicio /&gt;</code></td>
+                <td>Componente React.</td>
+              </tr>
+              <tr>
+                <td><code>&lt;Navegacion /&gt;</code></td>
+                <td>Componente React.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>9.4 JSX</h3>
+          <p>
+            JSX se parece a HTML, pero no es HTML puro. Vive dentro de
+            JavaScript y permite insertar expresiones con llaves.
+          </p>
+
+          <pre><code>&lt;h1&gt;{tituloCurso}&lt;/h1&gt;
+&lt;p&gt;El curso tiene {duracionHoras} horas.&lt;/p&gt;</code></pre>
+
+          <p>
+            Todo lo que va entre <code>{ }</code> se evalúa como JavaScript.
+            Puede ser una variable, una operación o una expresión sencilla.
+          </p>
+
+          <h4>Ejemplos de llaves JSX</h4>
+          <pre><code>const nombre = 'Ane'
+const horas = 30
+
+&lt;p&gt;Hola, {nombre}.&lt;/p&gt;
+&lt;p&gt;El curso dura {horas} horas.&lt;/p&gt;
+&lt;p&gt;La mitad del curso son {horas / 2} horas.&lt;/p&gt;</code></pre>
+
+          <p>
+            No usamos llaves para escribir texto fijo. Las usamos cuando queremos
+            que React inserte un valor de JavaScript.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>JSX</th>
+                <th>Resultado visual</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>&lt;p&gt;Contacto&lt;/p&gt;</code></td>
+                <td>Muestra el texto fijo "Contacto".</td>
+              </tr>
+              <tr>
+                <td><code>&lt;p&gt;{tituloCurso}&lt;/p&gt;</code></td>
+                <td>Muestra el valor guardado en la constante.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>9.5 Componentes dentro de JSX</h3>
+          <p>
+            Un componente puede usar otros componentes como si fueran etiquetas.
+          </p>
+
+          <pre><code>&lt;Navegacion /&gt;
+&lt;AppRoutes /&gt;
+&lt;Texto /&gt;
+&lt;Boton /&gt;</code></pre>
+
+          <p>
+            La barra final indica que el componente no tiene contenido interno.
+            Es equivalente a abrirlo y cerrarlo sin nada dentro.
+          </p>
+
+          <pre><code>// Forma autocerrada:
+&lt;Navegacion /&gt;
+
+// Forma equivalente, pero sin contenido:
+&lt;Navegacion&gt;&lt;/Navegacion&gt;</code></pre>
+
+          <p>
+            En clase usamos la forma autocerrada porque es más breve y habitual
+            cuando el componente no recibe contenido entre apertura y cierre.
+          </p>
+
+          <p>
+            En la página de inicio usamos esta idea para introducir componentes
+            pequeños. <code>Texto</code> muestra un párrafo y <code>Boton</code>
+            muestra un botón visual. Todavía no tienen props ni eventos porque
+            esta clase se centra en estructura.
+          </p>
+
+          <pre><code>&lt;Texto /&gt;
+&lt;Boton /&gt;</code></pre>
+
+          <h3>9.6 Props básicas</h3>
+          <p>
+            Las props son valores que pasamos a un componente o etiqueta JSX.
+            En esta clase aparecen props como <code>to</code>, <code>path</code>
+            y <code>element</code>.
+          </p>
+
+          <pre><code>&lt;Link to="/contacto"&gt;Contacto&lt;/Link&gt;
+&lt;Route path="/contacto" element={&lt;Contacto /&gt;} /&gt;</code></pre>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Dónde aparece</th>
+                <th>Qué significa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>to</code></td>
+                <td><code>Link</code></td>
+                <td>URL interna a la que queremos navegar.</td>
+              </tr>
+              <tr>
+                <td><code>path</code></td>
+                <td><code>Route</code></td>
+                <td>URL que React Router debe reconocer.</td>
+              </tr>
+              <tr>
+                <td><code>element</code></td>
+                <td><code>Route</code></td>
+                <td>Componente que se renderiza cuando coincide la ruta.</td>
+              </tr>
+              <tr>
+                <td><code>className</code></td>
+                <td>Etiquetas JSX</td>
+                <td>Clase CSS. En JSX se usa <code>className</code>, no <code>class</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Cómo leer una prop</h4>
+          <pre><code>&lt;Link to="/contacto"&gt;Contacto&lt;/Link&gt;</code></pre>
+
+          <p>
+            Lectura: "crea un enlace interno que navega a
+            <code>/contacto</code> y muestra el texto Contacto".
+          </p>
+
+          <pre><code>&lt;Route path="/contacto" element={&lt;Contacto /&gt;} /&gt;</code></pre>
+
+          <p>
+            Lectura: "si la URL es <code>/contacto</code>, renderiza el
+            componente <code>Contacto</code>". La prop <code>element</code> usa
+            llaves porque le estamos pasando JSX, no un texto normal.
+          </p>
+
+          <h3>9.7 Fragmentos</h3>
+          <p>
+            Un componente debe devolver un único bloque padre. Si queremos
+            devolver dos secciones sin crear un div extra, usamos un fragmento.
+          </p>
+
+          <pre><code>return (
+  &lt;&gt;
+    &lt;section&gt;...&lt;/section&gt;
+    &lt;section&gt;...&lt;/section&gt;
+  &lt;/&gt;
+)</code></pre>
+
+          <h3>9.8 Acceso al DOM</h3>
+          <p>
+            En <code>main.jsx</code> aparece una instrucción JavaScript clásica:
+          </p>
+
+          <pre><code>const contenedor = document.getElementById('root')</code></pre>
+
+          <p>
+            Significa: busca en el documento HTML el elemento que tenga
+            <code>id="root"</code>. Después React monta la aplicación ahí.
+          </p>
+
+          <p>
+            Este es uno de los pocos puntos donde tocamos directamente el DOM.
+            A partir de ahí, React se encarga de renderizar la interfaz. Por eso
+            en los componentes no escribimos normalmente
+            <code>document.getElementById</code>.
+          </p>
+
+          <h3>9.9 Llamadas encadenadas</h3>
+          <pre><code>createRoot(contenedor).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;,
+)</code></pre>
+
+          <p>
+            Primero se ejecuta <code>createRoot(contenedor)</code>. Eso devuelve
+            una raíz de React. Sobre esa raíz llamamos a <code>.render()</code>
+            para mostrar <code>App</code>.
+          </p>
+
+          <p>
+            Podemos leerlo de izquierda a derecha: "crea una raíz de React en
+            este contenedor y renderiza esta aplicación". Aunque parezca una
+            línea compleja al principio, realmente son dos acciones encadenadas.
+          </p>
+
+          <h3>9.10 Objetos de configuración</h3>
+          <p>
+            En <code>vite.config.js</code> aparece un objeto JavaScript:
+          </p>
+
+          <pre><code>export default defineConfig({
+  plugins: [react()],
+})</code></pre>
+
+          <p>
+            Las llaves crean un objeto. La propiedad <code>plugins</code> guarda
+            un array con el plugin de React.
+          </p>
+
+          <h4>Objeto y array en el mismo ejemplo</h4>
+          <pre><code>{
+  plugins: [react()],
+}</code></pre>
+
+          <p>
+            El objeto tiene una propiedad llamada <code>plugins</code>. El valor
+            de esa propiedad es un array. Dentro del array llamamos a
+            <code>react()</code>, que activa el plugin.
+          </p>
+
+          <div class="note">
+            <span class="label">Resumen JS/JSX</span>
+            <p>
+              En esta clase no usamos todavía estado, eventos ni formularios.
+              Pero sí usamos conceptos esenciales: módulos, constantes,
+              funciones, JSX, props, fragmentos, objetos y arrays. Es una buena
+              base para pasar después a listas, eventos y estado.
+            </p>
+          </div>
+        </section>
+
+        <section id="ejercicios-js" class="page-break">
+          <h2>10. Ejercicios de JavaScript y JSX</h2>
+
+          <div class="exercise">
+            <span class="label">Ejercicio JS 1</span>
+            <h3>Constantes y JSX</h3>
+            <p>
+              En <code>Inicio.jsx</code>, crea dos nuevas constantes:
+            </p>
+            <pre><code>const ciudad = 'Donostia'
+const modalidad = 'Presencial'</code></pre>
+            <p>
+              Muéstralas en un párrafo usando llaves JSX.
+            </p>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio JS 2</span>
+            <h3>Componente nuevo</h3>
+            <p>
+              Crea un componente llamado <code>ResumenCurso</code> dentro de
+              <code>Inicio.jsx</code>. Debe devolver un bloque con un título y
+              dos párrafos.
+            </p>
+            <pre><code>function ResumenCurso() {
+  return (
+    &lt;section&gt;
+      &lt;h2&gt;Resumen&lt;/h2&gt;
+      &lt;p&gt;Curso de React y Node.js.&lt;/p&gt;
+      &lt;p&gt;Duracion: 30 horas.&lt;/p&gt;
+    &lt;/section&gt;
+  )
+}</code></pre>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio JS 3</span>
+            <h3>Props de rutas</h3>
+            <p>
+              Localiza en <code>AppRoutes.jsx</code> estas props y explica qué
+              hace cada una:
+            </p>
+            <ul>
+              <li><code>path</code></li>
+              <li><code>element</code></li>
+            </ul>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio JS 4</span>
+            <h3>Fragmentos</h3>
+            <p>
+              En <code>Inicio.jsx</code>, explica por qué usamos
+              <code>&lt;&gt;...&lt;/&gt;</code>. Después prueba a quitar el
+              fragmento y observa qué error aparece.
+            </p>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio JS 5</span>
+            <h3>Import y export</h3>
+            <p>
+              Responde:
+            </p>
+            <ol>
+              <li>¿Qué archivo exporta <code>Contacto</code>?</li>
+              <li>¿Qué archivo importa <code>Contacto</code>?</li>
+              <li>¿Qué archivo exporta <code>Navegacion</code>?</li>
+              <li>¿Qué archivo importa <code>Navegacion</code>?</li>
+              <li>¿Qué archivo exporta <code>Texto</code>?</li>
+              <li>¿Qué archivo exporta <code>Boton</code>?</li>
+              <li>¿Qué archivo importa <code>Texto</code> y <code>Boton</code>?</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="ejercicios-stack">
+          <h2>11. Ejercicios de stack</h2>
+
+          <div class="exercise">
+            <span class="label">Ejercicio Stack 1</span>
+            <h3>Reconstruir la arquitectura</h3>
+            <p>
+              Dibuja en papel o en un archivo de texto la estructura:
+            </p>
+            <pre><code>src/
+  components/
+  pages/
+  routes/
+Backend/</code></pre>
+            <p>
+              Añade al lado de cada carpeta una frase explicando su función.
+            </p>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio Stack 2</span>
+            <h3>Añadir una página Cursos</h3>
+            <ol>
+              <li>Crear <code>src/pages/Cursos.jsx</code>.</li>
+              <li>Exportar el componente <code>Cursos</code>.</li>
+              <li>Importarlo en <code>AppRoutes.jsx</code>.</li>
+              <li>Añadir <code>&lt;Route path="/cursos" element={&lt;Cursos /&gt;} /&gt;</code>.</li>
+              <li>Añadir <code>&lt;Link to="/cursos"&gt;Cursos&lt;/Link&gt;</code> en <code>Navegacion.jsx</code>.</li>
+            </ol>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio Stack 3</span>
+            <h3>Explicar el flujo de Contacto</h3>
+            <p>
+              Explica con tus palabras este recorrido:
+            </p>
+            <ol>
+              <li>El usuario pulsa <code>Contacto</code>.</li>
+              <li>React Router cambia la ruta a <code>/contacto</code>.</li>
+              <li><code>AppRoutes.jsx</code> encuentra la ruta.</li>
+              <li><code>Contacto.jsx</code> muestra la página.</li>
+            </ol>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio Stack 4</span>
+            <h3>Probar el backend preparado</h3>
+            <p>
+              Ejecuta:
+            </p>
+            <pre><code>cd Backend
+npm run dev</code></pre>
+            <p>
+              Después responde: ¿por qué este backend todavía no se abre en el
+              navegador como una API?
+            </p>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio Stack 5</span>
+            <h3>Preguntas de repaso</h3>
+            <ol>
+              <li>¿Qué archivo contiene <code>div#root</code>?</li>
+              <li>¿Qué archivo monta React dentro de <code>div#root</code>?</li>
+              <li>¿Qué componente activa las rutas?</li>
+              <li>¿Qué componente contiene los enlaces?</li>
+              <li>¿Qué archivo relaciona <code>/contacto</code> con <code>Contacto</code>?</li>
+              <li>¿Qué dependencia se instaló específicamente para las rutas?</li>
+            </ol>
+          </div>
+
+          <p class="footer-note">
+            Fin de clase 2. La app queda preparada con una estructura mínima,
+            navegación interna y backend reservado. A partir de aquí se puede
+            avanzar hacia props, listas, estado y formularios.
+          </p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clase 1 - Entorno y Hola Mundo</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 18mm 16mm;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      body {
+        margin: 0;
+        background: #eef2f7;
+        color: #172033;
+        font-family: "Segoe UI", Arial, sans-serif;
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+
+      .page {
+        max-width: 920px;
+        margin: 0 auto;
+        background: #ffffff;
+      }
+
+      .cover {
+        min-height: 92vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 52px;
+        background:
+          linear-gradient(135deg, rgba(37, 99, 235, 0.92), rgba(15, 23, 42, 0.96)),
+          radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.8), transparent 34%);
+        color: #ffffff;
+      }
+
+      .cover small {
+        display: block;
+        margin-bottom: 16px;
+        color: #bfdbfe;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .cover h1 {
+        max-width: 720px;
+        margin: 0;
+        font-size: 48px;
+        line-height: 1.05;
+      }
+
+      .cover p {
+        max-width: 650px;
+        margin: 24px 0 0;
+        color: #dbeafe;
+        font-size: 18px;
+      }
+
+      .cover .meta {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 44px;
+      }
+
+      .meta div {
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 10px;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .meta strong {
+        display: block;
+        color: #ffffff;
+        font-size: 16px;
+      }
+
+      .meta span {
+        color: #bfdbfe;
+        font-size: 12px;
+      }
+
+      main {
+        padding: 36px 52px 52px;
+      }
+
+      h2 {
+        margin: 34px 0 12px;
+        color: #0f172a;
+        font-size: 25px;
+        line-height: 1.2;
+        border-bottom: 2px solid #dbeafe;
+        padding-bottom: 8px;
+      }
+
+      h3 {
+        margin: 24px 0 8px;
+        color: #1d4ed8;
+        font-size: 18px;
+      }
+
+      h4 {
+        margin: 18px 0 6px;
+        color: #0f172a;
+        font-size: 15px;
+      }
+
+      p {
+        margin: 0 0 10px;
+      }
+
+      ul,
+      ol {
+        margin-top: 6px;
+        padding-left: 24px;
+      }
+
+      li {
+        margin-bottom: 5px;
+      }
+
+      table {
+        width: 100%;
+        margin: 14px 0;
+        border-collapse: collapse;
+        font-size: 12.5px;
+      }
+
+      th {
+        background: #eff6ff;
+        color: #1e3a8a;
+        text-align: left;
+      }
+
+      th,
+      td {
+        border: 1px solid #d8e2ef;
+        padding: 8px 9px;
+        vertical-align: top;
+      }
+
+      code {
+        border-radius: 4px;
+        background: #edf2f7;
+        color: #0f172a;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 12.5px;
+        padding: 1px 4px;
+      }
+
+      pre {
+        margin: 12px 0 16px;
+        border: 1px solid #d7dfec;
+        border-left: 5px solid #2563eb;
+        border-radius: 8px;
+        background: #0f172a;
+        color: #e5e7eb;
+        font-size: 12.5px;
+        line-height: 1.45;
+        overflow: hidden;
+        padding: 14px 16px;
+        white-space: pre-wrap;
+      }
+
+      pre code {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+      }
+
+      .note,
+      .exercise,
+      .warning,
+      .check {
+        margin: 16px 0;
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+
+      .note {
+        border: 1px solid #bfdbfe;
+        background: #eff6ff;
+      }
+
+      .warning {
+        border: 1px solid #fed7aa;
+        background: #fff7ed;
+      }
+
+      .check {
+        border: 1px solid #bbf7d0;
+        background: #f0fdf4;
+      }
+
+      .exercise {
+        border: 1px solid #c4b5fd;
+        background: #f5f3ff;
+      }
+
+      .label {
+        display: inline-block;
+        margin-bottom: 8px;
+        border-radius: 999px;
+        background: #1d4ed8;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 3px 9px;
+        text-transform: uppercase;
+      }
+
+      .toc {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 20px;
+        margin: 18px 0 8px;
+      }
+
+      .toc a {
+        color: #1d4ed8;
+        text-decoration: none;
+      }
+
+      .page-break {
+        break-before: page;
+      }
+
+      .footer-note {
+        margin-top: 34px;
+        border-top: 1px solid #d8e2ef;
+        padding-top: 12px;
+        color: #64748b;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section class="cover">
+        <div>
+          <small>Curso React y Node.js - Clase 1 de 6</small>
+          <h1>Preparación del entorno y primer Hola Mundo</h1>
+          <p>
+            Guía para alumnado principiante: instalación de herramientas,
+            configuración inicial y creación del primer proyecto React con Vite.
+          </p>
+        </div>
+
+        <div class="meta">
+          <div>
+            <strong>Duración</strong>
+            <span>5 horas</span>
+          </div>
+          <div>
+            <strong>Nivel</strong>
+            <span>Inicio absoluto</span>
+          </div>
+          <div>
+            <strong>Objetivo</strong>
+            <span>De cero a una app React visible</span>
+          </div>
+        </div>
+      </section>
+
+      <main>
+        <h2>Índice</h2>
+        <div class="toc">
+          <a href="#objetivos">1. Objetivos de la clase</a>
+          <a href="#mapa">2. Mapa mental del stack</a>
+          <a href="#herramientas">3. Herramientas necesarias</a>
+          <a href="#github">4. Git, GitHub y VS Code</a>
+          <a href="#node">5. Instalación de Node.js</a>
+          <a href="#terminal">6. Terminal básica</a>
+          <a href="#vite">7. Crear el primer proyecto</a>
+          <a href="#codigo">8. Hola Mundo en React</a>
+          <a href="#errores">9. Errores habituales</a>
+          <a href="#ejercicios">10. Ejercicios</a>
+        </div>
+
+        <section id="objetivos">
+          <h2>1. Objetivos de la clase</h2>
+          <p>
+            Esta primera clase no busca crear una aplicación compleja. Busca que
+            todas las personas tengan el mismo entorno preparado y entiendan qué
+            papel cumple cada herramienta.
+          </p>
+
+          <div class="check">
+            <span class="label">Al terminar</span>
+            <ul>
+              <li>El alumnado tendrá instalado Visual Studio Code.</li>
+              <li>El alumnado tendrá instalado Git y una cuenta de GitHub.</li>
+              <li>El alumnado habrá configurado su nombre y correo de Git.</li>
+              <li>El alumnado tendrá instalado Node.js y npm.</li>
+              <li>El alumnado sabrá abrir una terminal en la carpeta correcta.</li>
+              <li>El alumnado habrá creado un primer proyecto React con Vite.</li>
+              <li>El alumnado habrá modificado el componente principal para mostrar un Hola Mundo.</li>
+            </ul>
+          </div>
+
+          <p>
+            Es importante ir despacio. En desarrollo web moderno no se empieza
+            escribiendo solo un archivo HTML. Antes necesitamos un entorno de
+            trabajo que nos permita usar módulos, instalar librerías, ejecutar
+            servidores de desarrollo y preparar la aplicación para producción.
+          </p>
+        </section>
+
+        <section id="mapa">
+          <h2>2. Mapa mental del stack</h2>
+          <p>
+            Antes de instalar nada conviene entender las piezas. El stack que
+            usaremos durante el curso tiene dos partes:
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Parte</th>
+                <th>Qué hace</th>
+                <th>Herramientas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Frontend</td>
+                <td>Es la interfaz que ve la persona usuaria en el navegador.</td>
+                <td>React, Vite, JavaScript, HTML, CSS</td>
+              </tr>
+              <tr>
+                <td>Backend</td>
+                <td>Es el servidor que recibirá peticiones, gestionará datos y devolverá respuestas.</td>
+                <td>Node.js, Express, JSON, API REST</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note">
+            <span class="label">Idea clave</span>
+            <p>
+              React no entra directamente en los archivos del backend. React se
+              comunicará con el backend haciendo peticiones HTTP. Más adelante
+              veremos llamadas como <code>fetch('/api/contacto')</code>.
+            </p>
+          </div>
+
+          <h3>Cómo queda la estructura del curso</h3>
+          <pre><code>00_PROYECTO_PROFE/
+  public/          archivos públicos del frontend
+  src/             código React
+  package.json     dependencias y scripts del frontend
+  vite.config.js   configuración de Vite
+  Backend/         backend Node/Express, que se hará más adelante</code></pre>
+
+          <p>
+            La raíz del proyecto será el frontend. La carpeta
+            <code>Backend/</code> queda preparada para la parte del servidor.
+          </p>
+        </section>
+
+        <section id="herramientas" class="page-break">
+          <h2>3. Herramientas necesarias</h2>
+
+          <h3>3.1 Visual Studio Code</h3>
+          <p>
+            Visual Studio Code será el editor principal del curso. No es React,
+            no es Node y no ejecuta la aplicación por sí solo. Es la herramienta
+            donde escribimos y organizamos el código.
+          </p>
+
+          <ol>
+            <li>Entrar en <code>https://code.visualstudio.com/</code>.</li>
+            <li>Descargar la versión para Windows.</li>
+            <li>Instalar aceptando las opciones por defecto.</li>
+            <li>Marcar, si aparece, la opción de abrir carpetas con VS Code desde el explorador.</li>
+          </ol>
+
+          <h3>3.2 Extensiones recomendadas para VS Code</h3>
+          <p>
+            Las extensiones añaden ayudas al editor. No conviene instalar
+            demasiadas al principio. Para esta formación bastan estas:
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Extensión</th>
+                <th>Para qué sirve</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Spanish Language Pack</td>
+                <td>Pone VS Code en castellano si el alumnado lo prefiere.</td>
+              </tr>
+              <tr>
+                <td>ESLint</td>
+                <td>Ayuda a detectar errores o malas prácticas en JavaScript y React.</td>
+              </tr>
+              <tr>
+                <td>Prettier</td>
+                <td>Formatea el código para que quede ordenado y consistente.</td>
+              </tr>
+              <tr>
+                <td>GitHub Pull Requests and Issues</td>
+                <td>Facilita la integración de GitHub dentro de VS Code.</td>
+              </tr>
+              <tr>
+                <td>Material Icon Theme</td>
+                <td>Opcional. Mejora la lectura visual de carpetas y archivos.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="warning">
+            <span class="label">Criterio didáctico</span>
+            <p>
+              En una primera clase no necesitamos convertir VS Code en un
+              entorno lleno de extensiones. El objetivo es entender el flujo
+              básico: carpeta, terminal, comandos, archivos y navegador.
+            </p>
+          </div>
+
+          <h3>3.3 Git</h3>
+          <p>
+            Git es la herramienta que nos permite guardar el historial del
+            proyecto. GitHub es una plataforma online donde podemos subir
+            repositorios. No son lo mismo.
+          </p>
+
+          <ol>
+            <li>Entrar en <code>https://git-scm.com/download/win</code>.</li>
+            <li>Descargar e instalar Git para Windows.</li>
+            <li>Durante la instalación, dejar las opciones por defecto salvo indicación del profesor.</li>
+            <li>Cerrar y abrir de nuevo la terminal para que el comando <code>git</code> esté disponible.</li>
+          </ol>
+
+          <p>Comprobación:</p>
+          <pre><code>git --version</code></pre>
+        </section>
+
+        <section id="github">
+          <h2>4. Git, GitHub y VS Code</h2>
+
+          <h3>4.1 Crear cuenta de GitHub</h3>
+          <ol>
+            <li>Entrar en <code>https://github.com/</code>.</li>
+            <li>Crear una cuenta con un correo que se vaya a conservar.</li>
+            <li>Verificar el correo si GitHub lo solicita.</li>
+            <li>Guardar usuario y contraseña en un gestor seguro.</li>
+          </ol>
+
+          <h3>4.2 Configurar Git desde consola</h3>
+          <p>
+            Antes de subir código, Git necesita saber quién hace los cambios.
+            Esta configuración se hace una vez por ordenador.
+          </p>
+
+          <pre><code>git config --global user.name "Nombre Apellido"
+git config --global user.email "correo-usado-en-github@example.com"
+git config --global init.defaultBranch main</code></pre>
+
+          <p>Para comprobar la configuración:</p>
+          <pre><code>git config --global --list</code></pre>
+
+          <div class="note">
+            <span class="label">Importante</span>
+            <p>
+              El correo configurado en Git debería coincidir con un correo
+              asociado a la cuenta de GitHub. Así los commits aparecerán
+              correctamente vinculados al perfil.
+            </p>
+          </div>
+
+          <h3>4.3 Conectar GitHub con VS Code</h3>
+          <p>
+            Hay dos caminos habituales. Para un curso introductorio podemos usar
+            el más simple:
+          </p>
+
+          <h4>Opción A - Desde VS Code</h4>
+          <ol>
+            <li>Abrir VS Code.</li>
+            <li>Ir al icono de cuentas, abajo a la izquierda.</li>
+            <li>Elegir iniciar sesión con GitHub.</li>
+            <li>Autorizar VS Code en el navegador.</li>
+          </ol>
+
+          <h4>Opción B - Desde consola con GitHub CLI</h4>
+          <p>
+            GitHub CLI es una herramienta opcional para trabajar con GitHub
+            desde la terminal. Si está instalada, se puede comprobar con:
+          </p>
+
+          <pre><code>gh --version</code></pre>
+
+          <p>Si no está instalada, se puede instalar desde <code>https://cli.github.com/</code>.</p>
+
+          <p>Después, iniciar sesión:</p>
+          <pre><code>gh auth login
+gh auth status</code></pre>
+
+          <div class="warning">
+            <span class="label">No confundir</span>
+            <p>
+              <code>git config</code> configura el nombre y correo de los
+              commits. <code>gh auth login</code> inicia sesión en GitHub desde
+              la terminal. Son pasos relacionados, pero no son lo mismo.
+            </p>
+          </div>
+        </section>
+
+        <section id="node" class="page-break">
+          <h2>5. Instalación de Node.js</h2>
+          <p>
+            Node.js permite ejecutar JavaScript fuera del navegador. En este
+            curso lo necesitamos por dos motivos:
+          </p>
+
+          <ul>
+            <li>para usar herramientas de desarrollo como Vite;</li>
+            <li>para crear más adelante el backend con Node y Express.</li>
+          </ul>
+
+          <h3>5.1 Instalación</h3>
+          <ol>
+            <li>Entrar en <code>https://nodejs.org/</code>.</li>
+            <li>Descargar la versión LTS recomendada.</li>
+            <li>Instalar dejando las opciones por defecto.</li>
+            <li>Cerrar y abrir de nuevo la terminal.</li>
+          </ol>
+
+          <h3>5.2 Comprobar Node y npm</h3>
+          <p>
+            npm se instala junto con Node. npm sirve para instalar paquetes y
+            ejecutar scripts del proyecto.
+          </p>
+
+          <pre><code>node -v
+npm -v</code></pre>
+
+          <p>Si ambos comandos devuelven una versión, el entorno está preparado.</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Comando</th>
+                <th>Qué comprueba</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>node -v</code></td>
+                <td>Que Node.js está instalado.</td>
+              </tr>
+              <tr>
+                <td><code>npm -v</code></td>
+                <td>Que npm está instalado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="terminal">
+          <h2>6. Terminal básica</h2>
+          <p>
+            La terminal es una forma de comunicarnos con el ordenador mediante
+            comandos. Al principio puede parecer menos cómoda que hacer clic,
+            pero en desarrollo web es imprescindible.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Comando PowerShell</th>
+                <th>Qué hace</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Get-Location</code></td>
+                <td>Muestra en qué carpeta estamos.</td>
+              </tr>
+              <tr>
+                <td><code>Get-ChildItem</code></td>
+                <td>Lista archivos y carpetas.</td>
+              </tr>
+              <tr>
+                <td><code>cd nombre-carpeta</code></td>
+                <td>Entra en una carpeta.</td>
+              </tr>
+              <tr>
+                <td><code>cd ..</code></td>
+                <td>Sube un nivel.</td>
+              </tr>
+              <tr>
+                <td><code>mkdir Nombre</code></td>
+                <td>Crea una carpeta.</td>
+              </tr>
+              <tr>
+                <td><code>code .</code></td>
+                <td>Abre la carpeta actual en VS Code.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="exercise">
+            <span class="label">Mini práctica</span>
+            <ol>
+              <li>Crear una carpeta llamada <code>curso-react-node</code>.</li>
+              <li>Entrar dentro con <code>cd curso-react-node</code>.</li>
+              <li>Comprobar la ubicación con <code>Get-Location</code>.</li>
+              <li>Abrir la carpeta con <code>code .</code>.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="vite" class="page-break">
+          <h2>7. Crear el primer proyecto React con Vite</h2>
+          <p>
+            Vite es la herramienta que prepara el proyecto. React será la
+            librería con la que construiremos la interfaz.
+          </p>
+
+          <h3>7.1 Crear el proyecto en la carpeta actual</h3>
+          <p>
+            Desde la carpeta vacía del curso ejecutamos:
+          </p>
+
+          <pre><code>npm create vite@latest . -- --template react</code></pre>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Parte</th>
+                <th>Significado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>npm</code></td>
+                <td>Ejecuta herramientas del ecosistema Node.</td>
+              </tr>
+              <tr>
+                <td><code>create vite@latest</code></td>
+                <td>Usa el creador oficial de proyectos Vite.</td>
+              </tr>
+              <tr>
+                <td><code>.</code></td>
+                <td>Indica que queremos crear el proyecto en la carpeta actual.</td>
+              </tr>
+              <tr>
+                <td><code>--template react</code></td>
+                <td>Indica que queremos una plantilla de React.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>7.2 Instalar dependencias</h3>
+          <p>
+            Vite crea archivos, pero todavía hay que instalar las librerías.
+          </p>
+
+          <pre><code>npm install</code></pre>
+
+          <p>
+            Este comando lee <code>package.json</code> y descarga las
+            dependencias dentro de <code>node_modules</code>.
+          </p>
+
+          <h3>7.3 Arrancar el servidor de desarrollo</h3>
+          <pre><code>npm run dev</code></pre>
+
+          <p>
+            Vite mostrará una URL parecida a:
+          </p>
+
+          <pre><code>http://localhost:5173/</code></pre>
+
+          <p>
+            Esa dirección solo funciona mientras el servidor de desarrollo está
+            arrancado.
+          </p>
+
+          <div class="note">
+            <span class="label">Cómo parar el servidor</span>
+            <p>
+              En la terminal donde se está ejecutando Vite, pulsar
+              <code>Ctrl + C</code>. Si pregunta si queremos terminar el
+              proceso, responder que sí.
+            </p>
+          </div>
+        </section>
+
+        <section id="codigo">
+          <h2>8. Hola Mundo en React</h2>
+
+          <h3>8.1 Archivos que debemos mirar primero</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Archivo</th>
+                <th>Función</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>index.html</code></td>
+                <td>HTML base que carga la aplicación.</td>
+              </tr>
+              <tr>
+                <td><code>src/main.jsx</code></td>
+                <td>Punto de entrada de React.</td>
+              </tr>
+              <tr>
+                <td><code>src/App.jsx</code></td>
+                <td>Primer componente principal.</td>
+              </tr>
+              <tr>
+                <td><code>src/index.css</code></td>
+                <td>Estilos globales.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>8.2 Qué es un componente</h3>
+          <p>
+            Para empezar, podemos pensar que un componente es una función que
+            devuelve una parte de la interfaz.
+          </p>
+
+          <pre><code>function App() {
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Hola Mundo&lt;/h1&gt;
+      &lt;p&gt;Mi primera aplicación con React y Vite.&lt;/p&gt;
+    &lt;/main&gt;
+  )
+}
+
+export default App</code></pre>
+
+          <h3>8.3 JSX</h3>
+          <p>
+            JSX se parece a HTML, pero vive dentro de JavaScript. Por eso
+            podemos mezclar estructura visual con datos.
+          </p>
+
+          <pre><code>const nombreCurso = 'React y Node.js'
+
+function App() {
+  return &lt;h1&gt;Hola {nombreCurso}&lt;/h1&gt;
+}</code></pre>
+
+          <p>
+            Las llaves <code>{ }</code> permiten insertar valores JavaScript
+            dentro del JSX.
+          </p>
+
+          <h3>8.4 Imports y exports</h3>
+          <p>
+            En proyectos modernos no trabajamos con un único archivo gigante.
+            Dividimos el código en archivos y usamos imports y exports.
+          </p>
+
+          <pre><code>import App from './App.jsx'</code></pre>
+
+          <p>
+            Ese import significa: "trae el componente App desde el archivo
+            App.jsx".
+          </p>
+
+          <pre><code>export default App</code></pre>
+
+          <p>
+            Ese export significa: "permite que otros archivos importen este
+            componente".
+          </p>
+        </section>
+
+        <section id="errores" class="page-break">
+          <h2>9. Errores habituales</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Problema</th>
+                <th>Posible causa</th>
+                <th>Solución</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>node</code> no se reconoce</td>
+                <td>Node no está instalado o la terminal se abrió antes de instalarlo.</td>
+                <td>Instalar Node, cerrar la terminal y abrir una nueva.</td>
+              </tr>
+              <tr>
+                <td><code>npm</code> no se reconoce</td>
+                <td>Node no está instalado correctamente.</td>
+                <td>Reinstalar Node LTS y comprobar con <code>node -v</code>.</td>
+              </tr>
+              <tr>
+                <td>No se abre <code>localhost:5173</code></td>
+                <td>El servidor Vite no está arrancado.</td>
+                <td>Ejecutar <code>npm run dev</code>.</td>
+              </tr>
+              <tr>
+                <td>Estoy en la carpeta equivocada</td>
+                <td>La terminal no está ubicada en la raíz del proyecto.</td>
+                <td>Usar <code>Get-Location</code> y <code>cd</code>.</td>
+              </tr>
+              <tr>
+                <td>La pantalla no cambia</td>
+                <td>Se editó otro archivo o no se guardó.</td>
+                <td>Guardar el archivo y comprobar que se está editando <code>src/App.jsx</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="ejercicios">
+          <h2>10. Ejercicios de clase</h2>
+
+          <div class="exercise">
+            <span class="label">Ejercicio 1</span>
+            <h3>Comprobar el entorno</h3>
+            <p>Ejecuta estos comandos y anota el resultado:</p>
+            <pre><code>node -v
+npm -v
+git --version</code></pre>
+            <p>
+              Objetivo: confirmar que las herramientas básicas están instaladas.
+            </p>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio 2</span>
+            <h3>Configurar Git</h3>
+            <p>Configura tu nombre y correo:</p>
+            <pre><code>git config --global user.name "Tu nombre"
+git config --global user.email "tu-correo@example.com"</code></pre>
+            <p>Comprueba el resultado:</p>
+            <pre><code>git config --global --list</code></pre>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio 3</span>
+            <h3>Crear el proyecto Vite</h3>
+            <ol>
+              <li>Crea una carpeta vacía para el curso.</li>
+              <li>Abre esa carpeta en VS Code.</li>
+              <li>Abre la terminal integrada.</li>
+              <li>Ejecuta <code>npm create vite@latest . -- --template react</code>.</li>
+              <li>Ejecuta <code>npm install</code>.</li>
+              <li>Ejecuta <code>npm run dev</code>.</li>
+              <li>Abre la URL que indique Vite.</li>
+            </ol>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio 4</span>
+            <h3>Modificar el Hola Mundo</h3>
+            <p>
+              Cambia el contenido de <code>src/App.jsx</code> para que muestre:
+            </p>
+            <ul>
+              <li>tu nombre;</li>
+              <li>el nombre del curso;</li>
+              <li>una frase sobre lo que esperas aprender.</li>
+            </ul>
+
+            <p>Ejemplo orientativo:</p>
+            <pre><code>const nombre = 'Ana'
+
+function App() {
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Hola, soy {nombre}&lt;/h1&gt;
+      &lt;p&gt;Estoy aprendiendo React y Node.js.&lt;/p&gt;
+    &lt;/main&gt;
+  )
+}
+
+export default App</code></pre>
+          </div>
+
+          <div class="exercise">
+            <span class="label">Ejercicio 5</span>
+            <h3>Explicar con tus palabras</h3>
+            <p>Responde brevemente:</p>
+            <ol>
+              <li>¿Para qué sirve Node.js en este curso?</li>
+              <li>¿Para qué sirve npm?</li>
+              <li>¿Qué hace Vite?</li>
+              <li>¿Qué archivo monta React en el navegador?</li>
+              <li>¿Qué significa escribir JavaScript dentro de <code>{ }</code> en JSX?</li>
+            </ol>
+          </div>
+
+          <p class="footer-note">
+            Fin de la clase 1. La siguiente clase añade una estructura básica
+            con rutas internas, página de contacto y carpeta Backend preparada.
+          </p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
