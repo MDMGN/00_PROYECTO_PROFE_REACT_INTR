@@ -16,7 +16,8 @@ const horasPorSesion = duracionHoras / numeroSesiones;
 // Vive en pages/ porque representa una pantalla completa.
 // La ruta "/" mostrara este componente gracias a AppRoutes.jsx.
 function Inicio() {
-  const { isOpen, items, setIsOpen, agregarTema, actualizarTema } = useInicio();
+  const { isOpen, items, setIsOpen, agregarTema, actualizarTema, elimnarTema } =
+    useInicio();
 
   return (
     // Usamos un fragmento <>...</> porque esta pagina devuelve dos secciones.
@@ -49,6 +50,7 @@ function Inicio() {
             items={items}
             onAddItem={agregarTema}
             onUpdateItem={actualizarTema}
+            onDeleteItem={elimnarTema}
           />
         )}
       </section>

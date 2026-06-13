@@ -10,6 +10,7 @@ export default function Temario({
   items,
   onAddItem,
   onUpdateItem,
+  onDeleteItem,
 }) {
   const inputRef = useRef(null);
   const isEmptyList = items.length === 0;
@@ -38,7 +39,11 @@ export default function Temario({
       {isEmptyList ? (
         <EmptyMessage />
       ) : (
-        <ListItem items={items} onUpdateItem={onUpdateItem} />
+        <ListItem
+          items={items}
+          onUpdateItem={onUpdateItem}
+          onDeleteItem={onDeleteItem}
+        />
       )}
     </div>
   );

@@ -1,29 +1,46 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Boton from "./Boton";
 
-export default function Item({ item, onUpdateItem }) {
+export default function Item({ item, onUpdateItem, onDeleteItem }) {
   const { id, title, completed } = item;
-  const [value, setValue] = useState(title);
   const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState(title);
+  const btnEditTitle = isEditing ? "Guardar" : "Editar";
+  const inputRef = useRef(null);
 
   return (
     <li>
       <span>
         <input
+          ref={inputRef}
           type="text"
+          readOnly={!isEditing}
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          readOnly={!isEditing}
         />
       </span>
       <span>
         <Boton
-          text={"Editar"}
+          text={btnEditTitle}
           onClick={() => {
-            onUpdateItem(item);
+            if (isEditing) {
+              onUpdateItem({
+                id,
+                title: inputRef.current.value.trim(),
+                completed,
+              });
+            } else {
+              inputRef.current.focus();
+            }
+
+            setIsEditing(!isEditing);
           }}
         />
-        <Boton text={"Eliminar"} color={"red"} />
+        <Boton
+          text={"Eliminar"}
+          color={"red"}
+          onClick={() => onDeleteItem(id)}
+        />
       </span>
     </li>
   );

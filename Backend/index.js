@@ -1,11 +1,11 @@
-// Este archivo sera el punto de entrada del backend.
-// Punto de entrada significa: el primer archivo que ejecutaremos con Node.js.
+const express = require("express");
 
-// De momento no arrancamos ningun servidor porque el curso empieza por React.
-// Mas adelante aqui configuraremos Express y las rutas de la API.
-// En clase 2 solo queremos que se vea donde vivira el backend dentro del stack.
+const PORT = 3000;
 
-// React no importara este archivo.
-// Cuando llegue la parte de backend, React se comunicara con este servidor por HTTP.
+const app = express();
 
-console.log('Backend preparado. Express se configurara mas adelante.')
+app.get("", () => {
+  console.log("Hola desde express");
+});
+
+app.listen(PORT);

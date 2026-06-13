@@ -47,7 +47,18 @@ export default function useInicio() {
   }
 
   function actualizarTema(newTema) {
-    console.log({ newTema });
+    const updatedItems = items.map((tema) =>
+      tema.id === newTema.id ? newTema : tema,
+    );
+
+    setItems(updatedItems);
+    updateStorage(updatedItems);
+  }
+
+  function elimnarTema(id) {
+    const updatedItems = items.filter((tema) => tema.id !== id);
+    setItems(updatedItems);
+    updateStorage(updatedItems);
   }
 
   return {
@@ -56,5 +67,6 @@ export default function useInicio() {
     items,
     agregarTema,
     actualizarTema,
+    elimnarTema,
   };
 }
