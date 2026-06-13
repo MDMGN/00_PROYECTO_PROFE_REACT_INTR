@@ -1,10 +1,18 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Boton from "./Boton";
 import ListItem from "./ListItem";
 import "./Temario.css";
+import EmptyMessage from "./EmptyMessage";
 
-export default function Temario({ title, description, items, onAddItem }) {
+export default function Temario({
+  title,
+  description,
+  items,
+  onAddItem,
+  onUpdateItem,
+}) {
   const inputRef = useRef(null);
+  const isEmptyList = items.length === 0;
 
   console.log("Rederizando Temario");
 
@@ -25,12 +33,13 @@ export default function Temario({ title, description, items, onAddItem }) {
           placeholder="Agregar un nuevo tema"
           onChange={onChange}
         />
-        <Boton
-          text="Agregar"
-          onClick={() => onAddItem(inputRef.current.value)}
-        />
+        <Boton text="Agregar" onClick={() => onAddItem(inputRef)} />
       </div>
-      <ListItem items={items} />
+      {isEmptyList ? (
+        <EmptyMessage />
+      ) : (
+        <ListItem items={items} onUpdateItem={onUpdateItem} />
+      )}
     </div>
   );
 }

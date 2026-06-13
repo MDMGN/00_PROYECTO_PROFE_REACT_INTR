@@ -1,9 +1,9 @@
 // Importamos componentes pequenos que se muestran dentro de la pagina Inicio.
 // Asi vemos que una pagina puede componerse de varias piezas reutilizables.
-import { useState } from "react";
 import Boton from "../components/Boton.jsx";
 import Temario from "../components/Temario.jsx";
 import Texto from "../components/Texto.jsx";
+import useInicio from "../hooks/useInicio.js";
 
 // En JavaScript usamos const cuando no vamos a reasignar una variable.
 // Estos datos se muestran despues dentro del JSX usando llaves: { }.
@@ -16,17 +16,7 @@ const horasPorSesion = duracionHoras / numeroSesiones;
 // Vive en pages/ porque representa una pantalla completa.
 // La ruta "/" mostrara este componente gracias a AppRoutes.jsx.
 function Inicio() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [items, setItems] = useState([]);
-
-  function agregarTema(tema) {
-    console.log("Nuevo tema:", tema);
-    // trim -> elimina espacios al principio y al final del texto.
-    // Comprobar que el tema no esta vacio despues de eliminar espacios.
-   
-    // Si el tema es valido, lo anadimos a la lista de items.
-    setItems([...items, tema]);
-  }
+  const { isOpen, items, setIsOpen, agregarTema, actualizarTema } = useInicio();
 
   return (
     // Usamos un fragmento <>...</> porque esta pagina devuelve dos secciones.
@@ -58,6 +48,7 @@ function Inicio() {
             description="En esta sección se explicará el temario del curso."
             items={items}
             onAddItem={agregarTema}
+            onUpdateItem={actualizarTema}
           />
         )}
       </section>

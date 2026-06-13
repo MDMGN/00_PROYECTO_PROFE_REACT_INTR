@@ -1,9 +1,11 @@
 import Item from "./Item";
 
-export default function ListItem({ items = [] }) {
-  return <ul>
-    {
-        items.map((item, index) => <Item item={item} key={index} /> )
-    }
-    </ul>;
+export default function ListItem({ items = [], onUpdateItem }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <Item item={item} key={item.id} onUpdateItem={onUpdateItem} />
+      ))}
+    </ul>
+  );
 }
