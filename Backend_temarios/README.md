@@ -24,6 +24,12 @@ Arrancar el servidor:
 npm run dev
 ```
 
+La copia de esta API usa el puerto `3001`:
+
+```txt
+http://localhost:3001
+```
+
 ## Base de datos
 
 Crear una base de datos en MySQL:
@@ -48,6 +54,8 @@ CREATE TABLE temarios (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
+
+Tambien se puede ejecutar directamente el archivo `database.sql` incluido en esta carpeta.
 
 ## Conexion con MySQL
 
@@ -212,7 +220,7 @@ app.use(express.urlencoded({ extended: true }));
 ## Ejemplo de peticion POST
 
 ```bash
-curl -X POST http://localhost:3000/temarios ^
+curl -X POST http://localhost:3001/temarios ^
   -H "Content-Type: application/json" ^
   -d "{\"titulo\":\"Express\",\"descripcion\":\"Rutas y middlewares\"}"
 ```

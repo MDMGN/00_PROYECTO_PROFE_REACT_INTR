@@ -1,18 +1,19 @@
 {
-  "name": "backend",
+  "name": "backend-temarios",
   "version": "1.0.0",
   "type": "module",
   "description": "Esta carpeta se usara mas adelante para crear el servidor con Node.js y Express.",
-  "main": "api.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --env-file=.env --watch api.js"
+    "dev": "node --env-file=.env --watch index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^5.2.1",
-    "hbs": "^4.2.1"
+    "hbs": "^4.2.1",
+    "mysql2": "^3.22.5"
   }
 }

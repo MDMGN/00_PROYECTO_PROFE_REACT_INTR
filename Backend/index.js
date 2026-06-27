@@ -15,17 +15,19 @@ app.use(express.urlencoded({ extended: true }));
 // Routes Get
 
 app.get("/", (req, res) => {
+  console.log(req.query);
+
   res.render("index", {
     name: "Darren",
     alumnos,
   });
 });
 
-app.get("/temarios", (req, res) => {
-  console.log(req.query);
-  res.send(
+app.get("/temarios", (request, response) => {
+  console.log(request.query);
+  response.send(
     `Lista de temarios: 
-    Busquedas: ${JSON.stringify(req.query)}`,
+    Busquedas: ${JSON.stringify(request.query)}`,
   );
 });
 
